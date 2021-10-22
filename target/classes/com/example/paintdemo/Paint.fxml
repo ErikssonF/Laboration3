@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import com.example.paintdemo.ResizableCanvas?>
+
+<BorderPane prefHeight="600.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.paintdemo.PaintController">
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem onAction="#onSave" text="Save" />
+                    <MenuItem onAction="#onExit" text="Exit" />
+                </Menu>
+            </MenuBar>
+            <ToolBar>
+                <HBox alignment="CENTER" spacing="5">
+                    <Button fx:id="rectangleButton" text="Rectangle" />
+                    <Button fx:id="circleButton" text="Circle"/>
+                    <Button fx:id="lineButton" text="Line"/>
+                    <Button fx:id="pointButton" text="Point"/>
+                    <Spinner fx:id="shapeSize" min="12" amountToStepBy="2" max="80" prefWidth="70" />
+                    <ColorPicker fx:id="colorPicker" />
+                </HBox>
+            </ToolBar>
+        </VBox>
+    </top>
+    <center>
+        <StackPane prefWidth="600" prefHeight="600">
+            <ResizableCanvas fx:id="canvas" onMouseClicked="#canvasClicked" />
+        </StackPane>
+    </center>
+</BorderPane>
