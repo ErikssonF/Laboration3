@@ -11,19 +11,18 @@
             fx:controller="com.example.paintdemo.PaintController">
     <top>
         <VBox>
-            <MenuBar>
-                <Menu text="File">
-                    <MenuItem onAction="#onSave" text="Save" />
-                    <MenuItem onAction="#onExit" text="Exit" />
-                </Menu>
-            </MenuBar>
+            <ToolBar>
+                <Button onAction="#onSave" text="Save" />
+            </ToolBar>
             <ToolBar>
                 <HBox alignment="CENTER" spacing="5">
-                    <Button fx:id="rectangleButton" text="Rectangle" />
-                    <Button fx:id="circleButton" text="Circle"/>
-                    <Button fx:id="lineButton" text="Line"/>
-                    <Button fx:id="pointButton" text="Point"/>
-                    <Spinner fx:id="shapeSize" min="12" amountToStepBy="2" max="80" prefWidth="70" />
+                    <RadioButton fx:id="squareButton" text="Square" toggleGroup="$shape">
+                    <ToggleGroup fx:id="shape"/>
+                    </RadioButton>
+                    <RadioButton fx:id="circleButton" text="Circle" toggleGroup="$shape"/>
+                    <RadioButton fx:id="selectButton" text="Select" toggleGroup="$shape"/>
+                    <Button fx:id="UndoButton" onAction="#undo" text="Undo"/>
+                    <Spinner fx:id="shapeSize" min="10" amountToStepBy="2" max="80" prefWidth="70" />
                     <ColorPicker fx:id="colorPicker" />
                 </HBox>
             </ToolBar>

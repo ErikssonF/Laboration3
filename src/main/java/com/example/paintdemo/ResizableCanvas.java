@@ -13,7 +13,6 @@ public class ResizableCanvas extends Canvas {
         return super.getHeight();
     }
 
-
     @Override
     public double prefWidth(double v) {
         return super.getWidth();
