@@ -34,9 +34,17 @@ public final class Square extends Shape {
         this.size = size;
     }
 
-    public Square(Shape shape) {
-        super(shape);
+    @Override
+    public Shape copyOf() {
+        return new Square(this);
     }
+
+    public Square(Square shape) {
+        super(shape);
+        this.size = shape.size;
+    }
+
+
     @Override
     public String drawSVG() {
         String convertColor = "#" + getColor().toString().substring(2, 10);

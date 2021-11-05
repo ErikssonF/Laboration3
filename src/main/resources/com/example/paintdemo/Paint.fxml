@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import com.example.paintdemo.ResizableCanvas?>
 
 <BorderPane prefHeight="600.0" prefWidth="600.0"
@@ -21,8 +19,9 @@
                     </RadioButton>
                     <RadioButton fx:id="circleButton" text="Circle" toggleGroup="$shape"/>
                     <RadioButton fx:id="selectButton" text="Select" toggleGroup="$shape"/>
-                    <Button fx:id="UndoButton" onAction="#undo" text="Undo"/>
                     <Spinner fx:id="shapeSize" min="10" amountToStepBy="2" max="80" prefWidth="70" />
+                    <Button fx:id="UndoButton" onAction="#undo" text="Undo"/>
+                    <Button fx:id="RedoButton" onAction="#redo" text="Redo"/>
                     <ColorPicker fx:id="colorPicker" />
                 </HBox>
             </ToolBar>

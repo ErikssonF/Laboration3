@@ -34,8 +34,15 @@ public final class Circle extends Shape {
         this.radius = radius;
 
     }
-    public Circle(Shape shape) {
+
+    @Override
+    public Shape copyOf() {
+        return new Circle(this);
+    }
+
+    public Circle(Circle shape) {
         super(shape);
+        this.radius = shape.radius;
     }
     @Override
     public String drawSVG() {

@@ -49,4 +49,6 @@ abstract public class Shape {
         return y;
     }
 
+    public abstract Shape copyOf();
+
 }

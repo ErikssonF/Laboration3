@@ -1,23 +1,24 @@
 package com.example.paintdemo;
 
-import javafx.collections.ListChangeListener;
+
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import shapes.Shape;
 import shapes.Shapes;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-
-
 public class PaintController {
 
+
     Model model;
+
+    @FXML
+    public Button UndoButton;
+
+    @FXML
+    public Button RedoButton;
 
     @FXML
     private Canvas canvas;
@@ -35,16 +36,9 @@ public class PaintController {
     public RadioButton selectButton;
 
     @FXML
-    public Button undoButton;
-
-    @FXML
     private Spinner<Integer> shapeSize;
 
     public PaintController() {
-    }
-
-    public PaintController(Model model) {
-        this.model = model;
     }
 
     public void initialize() {
@@ -98,21 +92,20 @@ public class PaintController {
         draw();
     }
 
-//    public void redo() {
-//        if (model.redo.isEmpty())
-//            return;
-//        ObservableList<Shape> temp = model.getTempList();
-//        model.undo.addLast(temp);
-//        model.shapes = model.redo.removeLast();
-//        System.out.println(model.undo);
-//        draw();
-//    }
+    public void redo() {
+        if (model.redo.isEmpty())
+            return;
+        ObservableList<Shape> temp = model.getTempList();
+        model.undo.addLast(temp);
+        model.shapes = model.redo.removeLast();
+        draw();
+    }
 
     public void undo() {
         if (model.undo.isEmpty())
             return;
-//        ObservableList<Shape> temp = model.getTempList();
-//        model.redo.addLast(temp);
+        ObservableList<Shape> temp = model.getTempList();
+        model.redo.addLast(temp);
 
         model.shapes = model.undo.removeLast();
         draw();
