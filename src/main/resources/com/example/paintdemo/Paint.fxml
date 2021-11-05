@@ -11,6 +11,8 @@
         <VBox>
             <ToolBar>
                 <Button onAction="#onSave" text="Save" />
+                <Button fx:id="UndoButton" onAction="#undo" text="Undo"/>
+                <Button fx:id="RedoButton" onAction="#redo" text="Redo"/>
             </ToolBar>
             <ToolBar>
                 <HBox alignment="CENTER" spacing="5">
@@ -18,11 +20,9 @@
                     <ToggleGroup fx:id="shape"/>
                     </RadioButton>
                     <RadioButton fx:id="circleButton" text="Circle" toggleGroup="$shape"/>
-                    <RadioButton fx:id="selectButton" text="Select" toggleGroup="$shape"/>
                     <Spinner fx:id="shapeSize" min="10" amountToStepBy="2" max="80" prefWidth="70" />
-                    <Button fx:id="UndoButton" onAction="#undo" text="Undo"/>
-                    <Button fx:id="RedoButton" onAction="#redo" text="Redo"/>
                     <ColorPicker fx:id="colorPicker" />
+                    <RadioButton fx:id="selectButton" text="Select" toggleGroup="$shape"/>
                 </HBox>
             </ToolBar>
         </VBox>

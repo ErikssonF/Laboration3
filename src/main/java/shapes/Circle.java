@@ -1,11 +1,9 @@
 package shapes;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import shapes.Shape;
+import javafx.scene.canvas.GraphicsContext;
 
 public final class Circle extends Shape {
-
     private double radius;
 
     public Circle(Color color, double x, double y, double radius) {
@@ -25,25 +23,14 @@ public final class Circle extends Shape {
         double dy = y - getY();
 
         double distanceFromCircleCenterSquared = dx * dx + dy * dy;
-
         return distanceFromCircleCenterSquared < radius*radius;
-    }
-
-    @Override
-    public void setSize(double radius) {
-        this.radius = radius;
-
-    }
-
-    @Override
-    public Shape copyOf() {
-        return new Circle(this);
     }
 
     public Circle(Circle shape) {
         super(shape);
         this.radius = shape.radius;
     }
+
     @Override
     public String drawSVG() {
         String convertColor = "#" + getColor().toString().substring(2, 10);
@@ -52,4 +39,9 @@ public final class Circle extends Shape {
                 "r=\"" + radius + "\" " +
                 "fill=\"" + convertColor + "\" />";
     }
+    @Override
+    public void setSize(double radius) {this.radius = radius;}
+
+    @Override
+    public Shape copyOf() {return new Circle(this);}
 }

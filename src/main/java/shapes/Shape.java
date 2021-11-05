@@ -1,13 +1,13 @@
 package shapes;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.canvas.GraphicsContext;
 
 abstract public class Shape {
     private Color color;
     private final double x;
     private final double y;
-    private double size;
+    private final double size;
 
     public Shape(Color color, double x, double y, double size) {
         this.color = color;
@@ -23,16 +23,18 @@ abstract public class Shape {
         this.size = shape.size;
     }
 
-    public void draw(GraphicsContext graphicsContext) {
-    }
+    public void draw(GraphicsContext graphicsContext) {}
     public abstract String drawSVG();
 
     public boolean isInside(double x, double y) {
         return false;
     }
 
-    public Color getColor() {
-        return color;
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
     }
 
     public abstract void setSize(double size);
@@ -40,13 +42,8 @@ abstract public class Shape {
     public void setColor(Color color) {
         this.color = color;
     }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
+    public Color getColor() {
+        return color;
     }
 
     public abstract Shape copyOf();

@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public final class Square extends Shape {
-
     private double size;
 
     public Square(Color color, double x, double y, double size) {
@@ -25,25 +24,13 @@ public final class Square extends Shape {
         double dy = y - getY();
 
         double distanceFromCircleCenterSquared = dx * dx + dy * dy;
-
         return distanceFromCircleCenterSquared < size*size;
-    }
-
-    @Override
-    public void setSize(double size) {
-        this.size = size;
-    }
-
-    @Override
-    public Shape copyOf() {
-        return new Square(this);
     }
 
     public Square(Square shape) {
         super(shape);
         this.size = shape.size;
     }
-
 
     @Override
     public String drawSVG() {
@@ -54,4 +41,12 @@ public final class Square extends Shape {
                 "height=\"" + (2* size) + "\" " +
                 "fill=\"" + convertColor + "\" />";
     }
+
+    @Override
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    @Override
+    public Shape copyOf() {return new Square(this);}
 }

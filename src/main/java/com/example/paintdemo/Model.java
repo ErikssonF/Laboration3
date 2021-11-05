@@ -1,17 +1,12 @@
 package com.example.paintdemo;
 
+import shapes.Shape;
+import java.util.Deque;
+import java.util.ArrayDeque;
 import javafx.beans.property.*;
+import javafx.scene.paint.Color;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import shapes.Circle;
-import shapes.Shape;
-import shapes.Shapes;
-import shapes.Square;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class Model {
     private final ObjectProperty<Color> color;
@@ -19,8 +14,8 @@ public class Model {
 
     ObservableList<Shape> shapes = FXCollections.observableArrayList();
 
-    Deque<ObservableList<Shape>> redo = new ArrayDeque<>();
-    Deque<ObservableList<Shape>> undo = new ArrayDeque<>();
+    Deque<ObservableList<Shape>> redoDeque = new ArrayDeque<>();
+    Deque<ObservableList<Shape>> undoDeque = new ArrayDeque<>();
 
     public Model() {
         this.color = new SimpleObjectProperty<>(Color.BLACK);
@@ -36,23 +31,26 @@ public class Model {
         return tempList;
     }
 
-    public Integer getSize() {
-        return size.get();
+    public void redo() {
+        if (redoDeque.isEmpty())
+            return;
+        ObservableList<Shape> temp = getTempList();
+        undoDeque.addLast(temp);
+        shapes = redoDeque.removeLast();
     }
 
-    public ObjectProperty sizeProperty() {
-        return size;
+    public void undo() {
+        if (undoDeque.isEmpty())
+            return;
+        ObservableList<Shape> temp = getTempList();
+        redoDeque.addLast(temp);
+
+        shapes = undoDeque.removeLast();
     }
 
-    public Color getColor() {
-        return color.get();
-    }
+    public Color getColor() {return color.get();}
+    public ObjectProperty<Color> colorProperty() {return color;}
 
-    public ObjectProperty<Color> colorProperty() {
-        return color;
-    }
+    public Integer getSize() {return size.get();}
 
-    public void setColor(Color color) {
-        this.color.set(color);
-    }
 }

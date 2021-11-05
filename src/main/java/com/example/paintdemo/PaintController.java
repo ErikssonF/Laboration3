@@ -1,27 +1,25 @@
 package com.example.paintdemo;
 
-
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import shapes.Shape;
 import shapes.Shapes;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
+import javafx.collections.ObservableList;
 
 public class PaintController {
 
-
     Model model;
+
+    @FXML
+    private Canvas canvas;
 
     @FXML
     public Button UndoButton;
 
     @FXML
     public Button RedoButton;
-
-    @FXML
-    private Canvas canvas;
 
     @FXML
     private ColorPicker colorPicker;
@@ -61,16 +59,11 @@ public class PaintController {
         }
     }
 
-    public void onSave() {
-        SvgConverter svgConverter = new SvgConverter();
-        svgConverter.saveSVGFile(model);
-    }
-
     public void canvasClicked(MouseEvent event) {
 
         if (selectButton.isSelected()) {
             ObservableList<Shape> temp = model.getTempList();
-            model.undo.addLast(temp);
+            model.undoDeque.addLast(temp);
             model.shapes.stream()
                     .filter(shape -> shape.isInside(event.getX(), event.getY()))
                     .reduce((first, second) -> second)
@@ -82,33 +75,28 @@ public class PaintController {
         } else {
             ObservableList<Shape> temp = model.getTempList();
             if (squareButton.isSelected()) {
-                model.undo.addLast(temp);
+                model.undoDeque.addLast(temp);
                 model.shapes.add(Shapes.squareOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
             } else if (circleButton.isSelected()) {
-                model.undo.addLast(temp);
+                model.undoDeque.addLast(temp);
                 model.shapes.add(Shapes.circleOf(event.getX(), event.getY(), model.getSize(), model.getColor()));
             }
         }
         draw();
     }
 
-    public void redo() {
-        if (model.redo.isEmpty())
-            return;
-        ObservableList<Shape> temp = model.getTempList();
-        model.undo.addLast(temp);
-        model.shapes = model.redo.removeLast();
-        draw();
-    }
-
     public void undo() {
-        if (model.undo.isEmpty())
-            return;
-        ObservableList<Shape> temp = model.getTempList();
-        model.redo.addLast(temp);
-
-        model.shapes = model.undo.removeLast();
+        model.undo();
         draw();
     }
 
+    public void redo() {
+        model.redo();
+        draw();
+    }
+
+    public void onSave() {
+        SvgConverter svgConverter = new SvgConverter();
+        svgConverter.saveSVGFile(model);
+    }
 }
